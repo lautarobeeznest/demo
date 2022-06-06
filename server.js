@@ -1,6 +1,5 @@
 const qrcode = require('qrcode-terminal');
 const { Client } = require('whatsapp-web.js');
-const puppeteer = require("puppeteer");
 const express = require('express');
 
 /** */
@@ -18,18 +17,17 @@ app.listen(port, () => {
 
 /** */
 
-const browserP = puppeteer.launch({
-	args: ["--no-sandbox", "--disable-setuid-sandbox"]
+const client = new Client({
+	puppeteer: {
+		headless: true,
+		args: ['--no-sandbox', '--disable-setuid-sandbox']
+	}
 });
 
-const client = new Client();
-
 client.on('qr', qr => {
-    qrcode.generate(qr, {small: true});
-
-	app.get('/asd', (req, res) => {
-		res.send(qr);
-	})
+    qrcode.generate(qr, { small: true });
+	
+	console.log(qr);
 });
 
 client.on('ready', () => {
