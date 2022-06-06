@@ -26,7 +26,7 @@ const client = new Client({
 
 client.on('qr', qr => {
     qrcode.generate(qr, { small: true });
-	
+
 	console.log(qr);
 });
 
@@ -63,6 +63,11 @@ client.on('message', message => {
         
 		message.reply(respuesta);
 	}
+});
+
+client.on('disconected', () => {
+    client.logout();
+	client.initialize();
 });
 
 client.initialize();
