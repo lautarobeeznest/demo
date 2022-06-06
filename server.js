@@ -66,7 +66,8 @@ client.on('message', message => {
 });
 
 client.on('disconected', () => {
-    client.logout();
+	console.log('desconectado');
+	
 	client.initialize();
 });
 
